@@ -194,7 +194,7 @@ public class BITalinoService extends IntentService {
         try {
             // Let's get the remote Bluetooth device
             //final String remoteDevice = "20:13:08:08:15:83";
-            final String remoteDevice = "98:D3:31:B2:13:1A";
+            final String remoteDevice = "98:D3:31:80:48:12";
 
             final BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
             dev = btAdapter.getRemoteDevice(remoteDevice);
