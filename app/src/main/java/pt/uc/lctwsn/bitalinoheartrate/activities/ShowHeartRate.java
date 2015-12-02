@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.AsyncTask;
 import android.os.IBinder;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import com.iHealth.HttpRequest;
 
 import pt.uc.lctwsn.bitalinoheartrate.services.BITalinoService;
 import pt.uc.lctwsn.bitalinoheartrate.R;
@@ -34,6 +36,9 @@ public class ShowHeartRate extends ActionBarActivity implements BITalinoListener
         tvLog = (TextView)findViewById(R.id.log);
         bluetoothEnabled = false;
         createService();
+
+
+        new DownloadFilesTask().execute("http://google.com");
 
     }
 
@@ -208,4 +213,24 @@ public class ShowHeartRate extends ActionBarActivity implements BITalinoListener
 
         }
     }
+
+
+    private class DownloadFilesTask extends AsyncTask<String, Integer, Long> {
+        protected Long doInBackground(String... urls) {
+
+            String response = HttpRequest.get("http://google.com").body();
+            System.out.println("Response was: " + response);
+            Long dvica = 2424242442421L;
+            return dvica;
+            }
+
+
+
+
+
+        protected void onPostExecute(Long result) {
+            System.out.println("onpostexecute je ovo pozvaooooo: " + result);
+        }
+    }
+
 }
