@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.IBinder;
 import android.support.v7.app.ActionBarActivity;
@@ -11,8 +12,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import com.iHealth.HttpRequest;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import pt.uc.lctwsn.bitalinoheartrate.services.BITalinoService;
 import pt.uc.lctwsn.bitalinoheartrate.R;
@@ -38,7 +46,31 @@ public class ShowHeartRate extends ActionBarActivity implements BITalinoListener
         createService();
 
 
-        new DownloadFilesTask().execute("http://google.com");
+
+
+        final Button high = (Button) findViewById(R.id.button);
+        final Button button = (Button) findViewById(R.id.buttonForHttp);
+
+        button.getBackground().setColorFilter(0xe9967a00, PorterDuff.Mode.MULTIPLY);
+        high.getBackground().setColorFilter(0xe9967a00, PorterDuff.Mode.MULTIPLY);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+                Log.i(TAG, "BAKIBAKIBAKIBBAKIBABKAIBKAIBKAIBKAIBK");
+
+                new DownloadFilesTask().execute("http://google.com");
+            }
+        });
+
+        high.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+                Log.i(TAG, "BAKIBAKIBAKIBBAKIBABKAIBKAIBKAIBKAIBK");
+
+                new High().execute("http://google.com");
+            }
+        });
 
     }
 
@@ -215,13 +247,63 @@ public class ShowHeartRate extends ActionBarActivity implements BITalinoListener
     }
 
 
+
+    private class High extends AsyncTask<String, Integer, Long> {
+        protected Long doInBackground(String... urls) {
+
+            try {
+                String response = HttpRequest.put("http://192.168.1.2/api/17c46cd56e785471c9be5a12cc66e73/lights/1/state").send("{\"bri\":250}").body();
+                //String response = HttpRequest.get("http://google.com").body();
+                System.out.println("Response was: " + response);
+
+            } catch (Exception e) {
+                Log.d(TAG, "someOtherMethod()", e);
+            }
+
+
+            Long dvica = 2424242442421L;
+            return dvica;
+
+        }
+    }
+
     private class DownloadFilesTask extends AsyncTask<String, Integer, Long> {
         protected Long doInBackground(String... urls) {
 
-            String response = HttpRequest.get("http://google.com").body();
-            System.out.println("Response was: " + response);
+            try {
+                String response = HttpRequest.put("http://192.168.1.2/api/17c46cd56e785471c9be5a12cc66e73/lights/1/state").send("{\"bri\":100}").body();
+                //String response = HttpRequest.get("http://google.com").body();
+                System.out.println("Response was: " + response);
+
+            } catch (Exception e) {
+                Log.d(TAG, "someOtherMethod()", e);
+            }
+
+
+
             Long dvica = 2424242442421L;
+
+
+
+
+           // Map<String, Integer> data = new HashMap<String, Integer>();
+           // data.put("bri", 25);
+
+            //JSONObject Podatci = new JSONObject();
+            //Podatci.put("bri", 10);
+            //data.put("state", "CA");
+            //String response1 = (HttpRequest.get("http://192.168.1.2/api/17c46cd56e785471c9be5a12cc66e73/lights/1/state").body());
+            //System.out.println("OVO MI JE REKOOOOOOOOOOOOOOO: " + response1);
+            //System.out.println("Response was: WWWWWWWWWWWWWWWWWWWWWWWWW " + data);
+            //Log.i(TAG, "create iIIIIIIJIJIJIJIJIJJIJIJIJIJIJIGJIGJIJGIGJIGJIGIGJGIJGIJG"+response1);
+            Log.i(TAG, "create BAKIBAKIBAKIBBAKIBABKAIBKAIBKAIBKAIBK");
+            Log.i(TAG, "create BAKIBAKIBAKIBBAKIBABKAIBKAIBKAIBKAIBK BAKIBAKIBAKIBBAKIBABKAIBKAIBKAIBKAIBK");
+
+           System.out.println("NECE NESTO");
+
+
             return dvica;
+
             }
 
 
